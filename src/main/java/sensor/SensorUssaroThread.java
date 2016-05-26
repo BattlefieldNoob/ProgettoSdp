@@ -3,6 +3,7 @@ package sensor;
 import com.google.gson.Gson;
 import sensor.Sensor;
 import sensor.data.Ussaro;
+import sensor.utility.Logging;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -21,6 +22,7 @@ public class SensorUssaroThread extends Thread {
     boolean running=true;
     DatagramSocket ds;
     TestSensor sensor;
+    private Logging log=Logging.getInstance();
 
     SensorUssaroThread(TestSensor sensor,int port){
         this.port=port;
@@ -40,18 +42,18 @@ public class SensorUssaroThread extends Thread {
             while (running){
                 byte[] buffer = new byte[1024];
                 DatagramPacket dp=new DatagramPacket(buffer,buffer.length);
-                System.out.println("waiting for udp");
+                log.info("waiting for udp");
                 ds.receive(dp);
                 String message=new String(dp.getData(),0,dp.getLength());
-                System.out.println("UDP Message:"+message);
+                log.info("UDP Message:"+message);
                 sensor.elaborateUssaro(gson.fromJson(message,Ussaro.class));
             }
         } catch (SocketException e){
-            System.out.println("Exit from outputThread");
+            log.info("Exit from outputThread");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Thread Exited");
+        log.info("Thread Exited");
     }
 
 

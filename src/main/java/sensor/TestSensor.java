@@ -7,6 +7,7 @@ import sensor.simulator.LightSimulator;
 import sensor.simulator.Measurement;
 import sensor.simulator.Simulator;
 import sensor.simulator.TemperatureSimulator;
+import sensor.utility.Logging;
 import server.data.SensorBuffer;
 import server.data.SensorData;
 
@@ -40,11 +41,12 @@ public class TestSensor {
     SensorInputThread inputThread;
     String id;
     List<SensorData> networkSensors;
-    String jsonComputed="";//rappresenta il risultato della computazione
     int nextPort;
     SensorData nextSensor;
 
     WebTarget target;
+
+    Logging log;
 
     boolean sendToMyself=false;
 
@@ -53,6 +55,7 @@ public class TestSensor {
     final Object exitlock = new Object();
 
     public static void main(String[] argv) throws IOException, ExecutionException, InterruptedException {
+        System.out.println("[DEBUG] prova grep console");
         if(argv!=null && argv.length>0) {
             System.out.println(argv.length);
             if(argv.length>3)
@@ -70,7 +73,8 @@ public class TestSensor {
         this.port=port;
         this.id=id;
         this.nextPort=nextPort;
-        System.out.println("Io sono:"+id+" "+type+" "+port);
+        log=Logging.getInstance(id,type);
+        log.info("Io sono:"+id+" "+type+" "+port);
         buffer=new SensorBuffer();
         switch (type) {
             case "light":
@@ -80,7 +84,7 @@ public class TestSensor {
                 sensor = new TemperatureSimulator(id, buffer);
                 break;
             default:
-                System.out.println("Errore!!!!!");
+                log.info("Errore!!!!!");
                 return;
         }
         thisSensor=new SensorData(id, type, "localhost", port);
@@ -91,9 +95,8 @@ public class TestSensor {
         target = client.target("http://localhost:8080").path("appsdp/sensor");
 
         Future<List<SensorData>> res = target.request(MediaType.APPLICATION_JSON).buildPost(Entity.json(thisSensor)).submit(new GenericType<List<SensorData>>(){});
-        //System.out.println("First:"+res.getStatusInfo());
         if (res.get()!=null) { //registrato sulla rete
-            System.out.println("Server Response:"+res.get());
+            log.info("Server Response:"+res.get());
             networkSensors=res.get();
         }
         outputThread = new SensorOutputThread(this,outputlock);//mi connetto con il successivo
@@ -103,7 +106,7 @@ public class TestSensor {
         ussaroThread=new SensorUssaroThread(this,port);
         if(networkSensors.size()<=1){
             //sono il primo, genero il token
-            System.out.println("Generato token");
+            log.info("Generato token");
             setToken(Token.getInstance());
         }
         ussaroThread.start();
@@ -117,10 +120,10 @@ public class TestSensor {
         while(!exit) {
             if (scanner.hasNext()){
                 String data=scanner.next();
-                System.out.println("hai scritto "+data);
+                log.info("hai scritto "+data);
                 if(data.equals("exit")){
                     synchronized (exitlock) {
-                        System.out.println("Closing...");
+                        log.info("Closing...");
                         sensor.stopMeGently();
                         outputThread.stopMe();
                         outputThread.join();
@@ -163,17 +166,17 @@ public class TestSensor {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080").path("appsdp/sensor/measurements");
         Gson prova=new Gson();
-        System.out.println("il token è grande:"+prova.toJson(token).length());
+        log.info("il token è grande:"+prova.toJson(token).length());
         int res = target.request(MediaType.APPLICATION_JSON).post(Entity.json(token.readAllAndClean())).getStatus();
         if(res==200){
-            System.out.println("Invio Token Effettuato");
+            log.info("Invio Token Effettuato");
         }
     }
     public void shutdownAll() throws InterruptedException {
         inputThread.stopMe();
         inputThread.join();
-        System.out.println(target.path("/{id}").resolveTemplate("id", id).request().delete().getStatus());
-        System.out.println("Done");
+        log.info(String.valueOf(target.path("/{id}").resolveTemplate("id", id).request().delete().getStatus()));
+        log.info("Done");
     }
 
     public synchronized boolean isSendToMyself(){
@@ -181,7 +184,7 @@ public class TestSensor {
     }
 
     public synchronized Token getComputedToken() throws InterruptedException {
-        System.out.println("GetComputedToken");
+        log.info("GetComputedToken");
         Token token1;
         synchronized (token) {
             Thread.sleep(2000);
@@ -193,21 +196,21 @@ public class TestSensor {
     public synchronized void setToken(Token newToken){
         synchronized (outputlock) {
             token=newToken;
-            System.out.println("data computata");
+            log.info("data computata");
             outputlock.notify();
         }
     }
 
     public synchronized void elaborateUssaro(Ussaro ussaro){
-        System.out.println(token!=null?"Ho il token":"Non ho il token");
+        log.info(token!=null?"Ho il token":"Non ho il token");
         if (!ussaro.target.getId().equals(thisSensor.getId())) {//non ho inviato io il messaggio
             if (ussaro.event.equals("Insert")) {
                 networkSensors.add(ussaro.target);
                 if(ussaro.targetNext.equals(thisSensor)){//io sono il suo next, quindi riapro il server
-                    System.out.println("Riapro il server");
+                    log.info("Riapro il server");
                     inputThread.resetServer();
                 }
-                System.out.println("new Sensor");
+                log.info("new Sensor");
                 try {
                     nextSensor=findNextSensor();
                     outputThread.configureConnectionWithNext(nextSensor);
@@ -220,9 +223,9 @@ public class TestSensor {
 
             } else if (ussaro.event.equals("Delete")) {
                 networkSensors.remove(ussaro.target);
-                System.out.println("a Sensor is exiting");
+                log.info("a Sensor is exiting");
                 if(ussaro.targetNext.equals(thisSensor)){//io sono il suo next, quindi riapro il server
-                    System.out.println("Riapro il server");
+                    log.info("Riapro il server");
                     inputThread.resetServer();
                 }
                 outputThread.sendUdpMessage(ussaro, nextSensor!=null?nextSensor:ussaro.target);
@@ -237,10 +240,10 @@ public class TestSensor {
             }
 
         } else {//ho inviato io il messaggio
-            System.out.println("Messaggio inviato da me");
+            log.info("Messaggio inviato da me");
             if (ussaro.event.equals("Insert")) {
                 try {
-                    System.out.println("mi connetto al successivo");
+                    log.info("mi connetto al successivo");
                     nextSensor=findNextSensor();
                     outputThread.configureConnectionWithNext(nextSensor);
                 } catch (InterruptedException e) {
@@ -253,27 +256,27 @@ public class TestSensor {
                 synchronized (exitlock){
                     exitlock.notify();//permetto la morte
                 }
-                System.out.println("posso morire");
+                log.info("posso morire");
             }
         }
     }
 
     public SensorData findNextSensor() throws IOException {
-        System.out.println("Calcolo il nuovo successivo");
+        log.info("Calcolo il nuovo successivo");
         //la funzione deve preoccuparsi di "scegliere" il sensore successivo dalla lista
         if(networkSensors.size()==1){
             //sono il primo sensore della rete
-            System.out.println("Sono il primo sensore, oppure sono rimasto da solo");
+            log.info("Sono il primo sensore, oppure sono rimasto da solo");
             sendToMyself=true;
             return null;
         }else{
             //non sono da solo, mi trovo nella lista e prendo il successivo
-            System.out.println("Sensors:"+networkSensors);
+            log.info("Sensors:"+networkSensors);
             int index=networkSensors.indexOf(thisSensor)+1;
             if(index>=networkSensors.size()){
                 index=0;
             }
-            System.out.println("Nuovo successivo:"+networkSensors.get(index));
+            log.info("Nuovo successivo:"+networkSensors.get(index));
             sendToMyself=false;
             return networkSensors.get(index);
         }
@@ -281,14 +284,14 @@ public class TestSensor {
 
     public void announceSensorEnter(){
         if(networkSensors.size()>1) {//invio il messaggio solo se ho un successivo
-            System.out.println("Send Udp Message");
+            log.info("Send Udp Message");
             outputThread.sendUdpMessage(new Ussaro("Insert", thisSensor, nextSensor),nextSensor); //invio un messaggio Udp al successivo
         }
     }
 
     public void announceSensorExit(){
         if(networkSensors.size()>1) {//invio il messaggio solo se ho un successivo
-            System.out.println("Send Udp Message");
+            log.info("Send Udp Message");
             outputThread.sendUdpMessage(new Ussaro("Delete", thisSensor, nextSensor),nextSensor); //invio un messaggio Udp al successivo
         }
     }

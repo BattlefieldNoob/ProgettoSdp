@@ -2,12 +2,14 @@ package sensor;
 
 import com.google.gson.Gson;
 import sensor.data.Ussaro;
+import sensor.utility.Logging;
 import server.data.SensorData;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import java.io.*;
 import java.net.*;
+import java.security.PrivateKey;
 
 /**
  * Created by antonio on 11/05/16.
@@ -25,6 +27,7 @@ public class SensorOutputThread extends Thread{
     Gson gson=new Gson();
     String TAG=getClass().getSimpleName();
     public Object lock;
+    private Logging log=Logging.getInstance();
 
 
     public SensorOutputThread(TestSensor thisSensor,Object lockObject) throws IOException {
@@ -32,7 +35,7 @@ public class SensorOutputThread extends Thread{
         this.sensor=thisSensor;
         client = ClientBuilder.newClient();
         target = client.target("http://localhost:8080").path("appsdp/sensor");
-        System.out.println("SensorOutputReady");
+        log.info("SensorOutputReady");
     }
 
     public void resetSocket() throws IOException {
@@ -56,15 +59,15 @@ public class SensorOutputThread extends Thread{
 
     public void configureConnectionWithNext(SensorData next) throws InterruptedException, IOException {
         if(next==null){
-            System.out.println(TAG+" non ho un sensore successivo");
+            log.info(TAG+" non ho un sensore successivo");
             resetSocket();
         }
         else{
-            System.out.println(TAG+" il sensore successivo è:"+next.getAddress() +":"+next.getPort());
+            log.info(TAG+" il sensore successivo è:"+next.getAddress() +":"+next.getPort());
             if(nextSocket!=null && !nextSocket.isClosed() && nextSocket.getInetAddress().equals(InetAddress.getByName(next.getAddress())) && nextSocket.getPort()==next.getPort()){
-                System.out.println("Sono già conneso, non faccio nulla");
+                log.info("Sono già conneso, non faccio nulla");
             }else {
-                System.out.println("Tento la connessione con il next");
+                log.info("Tento la connessione con il next");
                 resetSocket();
                 //tento la connessione
                 boolean connected = false;
@@ -73,10 +76,10 @@ public class SensorOutputThread extends Thread{
                         nextSocket = new Socket(next.getAddress(), next.getPort());
                         out = new DataOutputStream(nextSocket.getOutputStream());
                         in = new DataInputStream(nextSocket.getInputStream());
-                        System.out.println(TAG + " Connected to nextSocket");
+                        log.info(TAG + " Connected to nextSocket");
                         connected = true;
                     } catch (IOException e) {
-                        System.out.println(TAG + " not connected, retry");
+                        log.info(TAG + " not connected, retry");
                         sleep(1000);
                     }
                 }
@@ -89,10 +92,10 @@ public class SensorOutputThread extends Thread{
         try {
             ds = new DatagramSocket();
             String data=gson.toJson(message);
-            System.out.println("UDP Send to "+InetAddress.getByName(sendTo.getAddress())+" "+sendTo.getPort());
+            log.info("UDP Send to "+InetAddress.getByName(sendTo.getAddress())+" "+sendTo.getPort());
             DatagramPacket dp = new DatagramPacket(data.getBytes(), data.getBytes().length, InetAddress.getByName(sendTo.getAddress()), sendTo.getPort());
             ds.send(dp);
-            System.out.println("UDP Send ok");
+            log.info("UDP Send ok");
         } catch (SocketException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -114,30 +117,30 @@ public class SensorOutputThread extends Thread{
     public void run(){
         while(running || sensor.isDataAvaiable()){//se running e sono disponibili info
             if(!running){
-                System.out.println("Sto ancora inviando, ora esco");
+                log.info("Sto ancora inviando, ora esco");
             }
             synchronized (lock) {
                 try {
                     if(sensor.isSendToMyself()){
-                        System.out.println("invio a me stesso");
+                        log.info("invio a me stesso");
                         sensor.getComputedToken();
                     }
                     if (nextSocket != null) {
                         synchronized (nextSocket) {
                             if(out != null && !nextSocket.isClosed()) {
                                 if (!sensor.isDataAvaiable()) {
-                                    System.out.println(TAG + " : waiting for data");
+                                    log.info(TAG + " : waiting for data");
                                     lock.wait();//waiting for computed data
                                 }
-                                System.out.println(TAG + " : send data to " + nextSocket.getInetAddress().toString() + " port " + nextSocket.getPort());
+                                log.info(TAG + " : send data to " + nextSocket.getInetAddress().toString() + " port " + nextSocket.getPort());
                                 String message;
                                 if (sensor.isDataAvaiable()) {
                                     message = gson.toJson(sensor.getComputedToken());
                                     sensor.token = null;
                                     out.writeUTF(message); //send data
-                                    System.out.println("wait for ACK");
+                                    log.info("wait for ACK");
                                     in.read();//aspetto l'ok
-                                    System.out.println(TAG + " : data sended :" + message);
+                                    log.info(TAG + " : data sended :" + message);
                                 }
                             }
                         }
@@ -146,11 +149,11 @@ public class SensorOutputThread extends Thread{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    System.out.println("Tutto ok");
+                    log.info("Tutto ok");
                     e.printStackTrace();
                 }
             }
         }
-        System.out.println(getClass().getSimpleName()+" Terminated");
+        log.info(getClass().getSimpleName()+" Terminated");
     }
 }

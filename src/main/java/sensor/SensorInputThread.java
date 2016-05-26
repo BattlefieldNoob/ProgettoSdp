@@ -2,6 +2,7 @@ package sensor;
 
 import com.google.gson.Gson;
 import sensor.data.Token;
+import sensor.utility.Logging;
 
 import javax.xml.crypto.Data;
 import java.io.DataInputStream;
@@ -29,6 +30,7 @@ public class SensorInputThread extends Thread {
     private Object lock;
     private int port;
     private String TAG=getClass().getSimpleName();
+    private Logging log=Logging.getInstance();
 
     public SensorInputThread (TestSensor sensor,Object lock,int port){
         this.sensor=sensor;
@@ -63,33 +65,33 @@ public class SensorInputThread extends Thread {
             //è connesso a qualcosa?
             if(server == null || prevSocket == null || in==null){
                 //non è connesso, quindi mi metto in ascolto
-                System.out.println(TAG+" In attesa di connessioni...");
+                log.info(TAG+" In attesa di connessioni...");
                 try {
                     prevSocket = server.accept();
                     in = new DataInputStream(prevSocket.getInputStream());
                     out= new DataOutputStream(prevSocket.getOutputStream());
-                    System.out.println(TAG+" Connected");
+                    log.info(TAG+" Connected");
                 } catch (IOException e) {
-                    System.out.println("Tutto calcolato");
+                    log.info("Tutto calcolato");
                    // e.printStackTrace();
                 }
             }else {
                 String message="";
-                System.out.println(TAG+" In attesa di cose...");
+                log.info(TAG+" In attesa di cose...");
                 try {
                     message=in.readUTF();
                     out.write(255);//invio ACK
-                    System.out.println(TAG+" letto :"+message);
+                    log.info(TAG+" letto :"+message);
                     //ho letto qualcosa, la rendo disponibile e "avviso" outputThread
-                    System.out.println(TAG+" Setto il messaggio come 'da computare'");
+                    log.info(TAG+" Setto il messaggio come 'da computare'");
                     sensor.setToken(gson.fromJson(message, Token.class));
                 } catch (IOException e) {
-                    System.out.println("Tutto ok");
+                    log.info("Tutto ok");
                 }
 
             }
         }
-        System.out.println(getClass().getSimpleName()+" Terminated");
+        log.info(getClass().getSimpleName()+" Terminated");
     }
 
     public void resetServer(){
