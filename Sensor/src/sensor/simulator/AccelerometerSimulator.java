@@ -3,7 +3,7 @@ package sensor.simulator;
 /**
  * Created by civi on 22/04/16.
  */
-public class AccelerometerSimulator extends Simulator {
+public class AccelerometerSimulator extends Simulator implements Runnable {
 
     private final double A1 = 5;
     private final double W1 = 10;

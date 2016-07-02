@@ -3,9 +3,7 @@ package server.data;
 
 import server.simulator.Measurement;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by antonio on 12/05/16.
@@ -26,9 +24,9 @@ public class MeasurementsDB {
         synchronized (measurementsHash) {
             for (Measurement measurement : measurements) {
                 String key = measurement.getId() + "-" + measurement.getType();
-                System.out.println("working with key " + key);
                 List<Measurement> list;
-                if (measurementsHash.containsKey(key)) {//se lo contiene, prendi la lista e allungala
+                if (measurementsHash.containsKey(key)) {
+                    //se lo contiene, prendi la lista e inserisci le nuove misurazioni
                     list = measurementsHash.get(key);
                 } else {//se non lo contiene, creala
                     list = new LinkedList<>();
@@ -41,8 +39,22 @@ public class MeasurementsDB {
     }
 
     public List<Measurement> readById(String key) {
+        List<Measurement> measurementsByID = new LinkedList<>();
         synchronized (measurementsHash) {
-            return measurementsHash.get(key);
+            Set<Map.Entry<String, List<Measurement>>> set = measurementsHash.entrySet();
+            for (Map.Entry<String, List<Measurement>> entry : set) {
+                if (entry.getKey().contains(key)) {
+                    measurementsByID.addAll(entry.getValue());
+                }
+            }
+        }
+        return measurementsByID;
+    }
+
+    public Measurement readLastById(String key) {
+        synchronized (measurementsHash) {
+            List<Measurement> measurements = measurementsHash.get(key);
+            return measurements.get(measurements.size() - 1);
         }
     }
 }

@@ -51,7 +51,6 @@ public class SensorsDB {
     public SensorData readNext(String id) {
         for (SensorData sensor : sensorsList) {
             if (sensor.getId().equals(id)) {
-                //Ti ho trovato
                 int next = sensorsList.indexOf(sensor) + 1;
                 if (next >= sensorsList.size()) {
                     next = 0;
@@ -65,7 +64,6 @@ public class SensorsDB {
     public boolean delete(String id) {
         for (SensorData sensor : sensorsList) {
             if (sensor.getId().equals(id)) {
-                //Ti ho trovato
                 sensorsList.remove(sensor);
                 return true;
             }

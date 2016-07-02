@@ -16,10 +16,10 @@ class SensorServerThread extends Thread {
     LinkedList<SensorInputThread> inputThreads = new LinkedList<>();
     private boolean running = true;
     private ServerSocket server;
-    private TestSensor sensor;
+    private Sensor sensor;
     private Logging log = Logging.getInstance();
 
-    SensorServerThread(TestSensor sensor, int port) {
+    SensorServerThread(Sensor sensor, int port) {
         this.sensor = sensor;
         try {
             server = new ServerSocket(port);

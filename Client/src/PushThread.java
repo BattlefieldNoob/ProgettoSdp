@@ -6,11 +6,11 @@ import java.net.SocketException;
 /**
  * Created by antonio on 12/05/16.
  */
-public class PushThread extends Thread {
+class PushThread extends Thread {
 
-    int port;
-    boolean running = true;
-    DatagramSocket ds;
+    private int port;
+    private boolean running = true;
+    private DatagramSocket ds;
 
     PushThread(int port) {
         this.port = port;
@@ -32,11 +32,8 @@ public class PushThread extends Thread {
                 System.out.println("Received: " + new String(dp.getData(), 0, dp.getLength()));
             }
         } catch (SocketException e) {
-            //e.printStackTrace();
-            System.out.println("Exit from thread");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Thread Exited");
     }
 }

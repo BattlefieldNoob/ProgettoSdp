@@ -34,17 +34,6 @@ public class UsersDB {
         }
     }
 
-    public boolean check(String username) {
-        synchronized (usersList) {
-            for (UserData user : usersList) {
-                if (user.username.equals(username)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
     public boolean delete(String username) {
         synchronized (usersList) {
             for (UserData user : usersList) {

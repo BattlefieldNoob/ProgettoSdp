@@ -40,7 +40,6 @@ public class SensorsApi {
     @Produces(MediaType.APPLICATION_JSON)
     public SensorData getNextSensor(@PathParam("id") String id) {
         SensorData ret = sensorsDB.readNext(id);
-        //   System.out.println("Next of "+id+":"+ret);
         return ret;
     }
 
@@ -48,7 +47,7 @@ public class SensorsApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<SensorData> addSensor(SensorData sensor) {
-        System.out.println("Un sensore vuole inserirsi nella rete");
+        System.out.println("A Sensor want to enter into the network");
         System.out.println(sensor);
         sensorsDB.create(sensor);
         try {
@@ -63,7 +62,7 @@ public class SensorsApi {
     @DELETE
     @Path("/{id}")
     public Response deleteSensor(@PathParam("id") String id) {
-        System.out.println("Un sensore sta uscendo dalla rete");
+        System.out.println("A Sensor is exiting from the network");
         sensorsDB.delete(id);
         try {
             UsersApi.sendPush(id + " Exited");
@@ -77,7 +76,7 @@ public class SensorsApi {
     @Path("measurements")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addMeasurements(List<Measurement> measurements) {
-        System.out.println("Un sensore mi ha inviato le misurazioni");
+        System.out.println("Measurements from Sensor");
         db.addMeasurements(measurements);
         return Response.ok().build();
     }

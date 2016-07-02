@@ -19,17 +19,16 @@ class SensorOutputThread extends Thread {
     private DataOutputStream out;
     private DataInputStream in;
     private Socket nextSocket;
-    private TestSensor sensor;
+    private Sensor sensor;
     private boolean running = true;
     private Gson gson = new Gson();
-    private String TAG = getClass().getSimpleName();
     private Object lock;
     private Logging log = Logging.getInstance();
     private boolean lastSendToCurrentNext = false;
     private SensorData nextSensor;
 
 
-    SensorOutputThread(TestSensor thisSensor, Object lockObject) throws IOException {
+    SensorOutputThread(Sensor thisSensor, Object lockObject) throws IOException {
         this.lock = lockObject;
         this.sensor = thisSensor;
     }
@@ -105,7 +104,6 @@ class SensorOutputThread extends Thread {
                                         sensor.eventBuffer.remove();
                                         out.writeUTF(json.toString());
                                         in.read();
-                                        log.info("Data Sended :" + json.toString(), getClass().getSimpleName());
                                     }
                                 }
                                 if (sensor.isDataAvailable() && !lastSendToCurrentNext) {
@@ -118,7 +116,6 @@ class SensorOutputThread extends Thread {
                                         sensor.token = null;
                                         out.writeUTF(json.toString());
                                         in.read();//aspetto l'ok
-                                        log.info("Data Sended :" + json.toString(), getClass().getSimpleName());
                                     }
                                 }
                                 if (lastSendToCurrentNext) {

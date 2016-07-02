@@ -68,6 +68,10 @@ public class SensorData {
                 '}';
     }
 
+    public String toClientInterface() {
+        return "Sensor " + id + " (type = " + type + ")";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
