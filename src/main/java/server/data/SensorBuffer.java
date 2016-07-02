@@ -1,7 +1,8 @@
 package server.data;
 
-import sensor.simulator.Buffer;
-import sensor.simulator.Measurement;
+
+import server.simulator.Buffer;
+import server.simulator.Measurement;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class SensorBuffer implements Buffer<Measurement> {
 
-    private final List<Measurement> measurements=new LinkedList<>();
+    private final List<Measurement> measurements = new LinkedList<>();
 
     @Override
     public void add(Measurement measurement) {

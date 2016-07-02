@@ -1,28 +1,28 @@
 package server.data;
 
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by antonio on 06/05/16.
  */
-public class SensorsDB{
+public class SensorsDB {
 
     private static SensorsDB instance;
+    private final List<SensorData> sensorsList = new LinkedList<>();
 
-    public static SensorsDB getInstance(){
-        if(instance==null){
-            instance=new SensorsDB();
+    public static SensorsDB getInstance() {
+        if (instance == null) {
+            instance = new SensorsDB();
         }
         return instance;
     }
 
-    private final List<SensorData> sensorsList=new LinkedList<>();
-
-    public boolean create(SensorData newsensor){
+    public boolean create(SensorData newsensor) {
         synchronized (sensorsList) {
             for (SensorData sensor : sensorsList) {
-                if(sensor.getId().equals(newsensor.getId())){
+                if (sensor.getId().equals(newsensor.getId())) {
                     return false;
                 }
             }
@@ -31,10 +31,10 @@ public class SensorsDB{
         }
     }
 
-    public SensorData read(String id){
+    public SensorData read(String id) {
         synchronized (sensorsList) {
             for (SensorData sensor : sensorsList) {
-                if(sensor.getId().equals(id)){
+                if (sensor.getId().equals(id)) {
                     return sensor;
                 }
             }
@@ -42,19 +42,19 @@ public class SensorsDB{
         }
     }
 
-    public List<SensorData> readAll(){
+    public List<SensorData> readAll() {
         synchronized (sensorsList) {
             return sensorsList;
         }
     }
 
-    public SensorData readNext(String id){
+    public SensorData readNext(String id) {
         for (SensorData sensor : sensorsList) {
-            if(sensor.getId().equals(id)){
+            if (sensor.getId().equals(id)) {
                 //Ti ho trovato
-                int next=sensorsList.indexOf(sensor)+1;
-                if(next>=sensorsList.size()){
-                    next=0;
+                int next = sensorsList.indexOf(sensor) + 1;
+                if (next >= sensorsList.size()) {
+                    next = 0;
                 }
                 return sensorsList.get(next);
             }
@@ -62,9 +62,9 @@ public class SensorsDB{
         return null;
     }
 
-    public boolean delete(String id){
+    public boolean delete(String id) {
         for (SensorData sensor : sensorsList) {
-            if(sensor.getId().equals(id)){
+            if (sensor.getId().equals(id)) {
                 //Ti ho trovato
                 sensorsList.remove(sensor);
                 return true;

@@ -1,6 +1,7 @@
 package server.data;
 
-import client.UserData;
+
+import server.client.UserData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,20 +13,19 @@ public class UsersDB {
 
 
     private static UsersDB instance;
+    private final List<UserData> usersList = new LinkedList<>();
 
-    public static UsersDB getInstance(){
-        if(instance==null){
-            instance=new UsersDB();
+    public static UsersDB getInstance() {
+        if (instance == null) {
+            instance = new UsersDB();
         }
         return instance;
     }
 
-    private final List<UserData> usersList=new LinkedList<>();
-
-    public boolean create(UserData newuser){
+    public boolean create(UserData newuser) {
         synchronized (usersList) {
             for (UserData username : usersList) {
-                if(username.username.equals(newuser.username)){
+                if (username.username.equals(newuser.username)) {
                     return false;
                 }
             }
@@ -34,10 +34,10 @@ public class UsersDB {
         }
     }
 
-    public boolean check(String username){
+    public boolean check(String username) {
         synchronized (usersList) {
             for (UserData user : usersList) {
-                if(user.username.equals(username)){
+                if (user.username.equals(username)) {
                     return true;
                 }
             }
@@ -45,10 +45,10 @@ public class UsersDB {
         }
     }
 
-    public boolean delete(String username){
+    public boolean delete(String username) {
         synchronized (usersList) {
             for (UserData user : usersList) {
-                if(user.username.equals(username)){
+                if (user.username.equals(username)) {
                     usersList.remove(user);
                     return true;
                 }
@@ -57,7 +57,7 @@ public class UsersDB {
         return false;
     }
 
-    public List<UserData> readAll(){
+    public List<UserData> readAll() {
         return usersList;
     }
 

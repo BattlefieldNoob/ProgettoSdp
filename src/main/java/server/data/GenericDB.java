@@ -5,5 +5,5 @@ package server.data;
  */
 public interface GenericDB {
 
-    public <T extends Object>boolean create(T obj);
+    public <T extends Object> boolean create(T obj);
 }
