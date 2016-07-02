@@ -7,91 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f438965c-3ba0-4031-a168-57fd38bf698e" name="Default" comment="A Looooooot of changes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Client_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Sensor_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Server_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/Client.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/src/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/Sensor.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/data/Event.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/data/SensorBuffer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/client/UserData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/AccelerometerSimulator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/Buffer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/LightSimulator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/Measurement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/Simulator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/server/simulator/TemperatureSimulator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/DataProva.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/ProvaMisurazioni.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/Sensor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/SensorComputeThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/SensorInputThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/SensorOutputThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sensor/SensorUssaroThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/client/Client$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/client/Client$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/client/Client.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/client/PushThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/client/UserData.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/DataProva.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/ProvaMisurazioni.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/Sensor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/SensorComputeThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/SensorInputThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/SensorOutputThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/SensorUssaroThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/TestSensor$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/TestSensor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/data/Token.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/data/Ussaro.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/AccelerometerSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/Buffer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/LightSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/Measurement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/Simulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/simulator/TemperatureSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/sensor/utility/Logging.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/client/Client$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/client/Client$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/client/Client.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/client/PushThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/client/UserData.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/DataProva.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/ProvaMisurazioni.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/Sensor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/SensorComputeThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/SensorInputThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/SensorOutputThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/SensorUssaroThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/TestSensor$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/TestSensor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/data/Token.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/data/Ussaro.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/AccelerometerSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/Buffer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/LightSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/Measurement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/Simulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/simulator/TemperatureSimulator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/sensor/utility/Logging.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/client/Client.java" afterPath="$PROJECT_DIR$/Client/src/Client.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/client/PushThread.java" afterPath="$PROJECT_DIR$/Client/src/PushThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/client/UserData.java" afterPath="$PROJECT_DIR$/Client/src/UserData.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/TestSensor.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/TestSensor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/data/Token.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/data/Token.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/data/Ussaro.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/data/Event.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/AccelerometerSimulator.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/AccelerometerSimulator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/Buffer.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/Buffer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/LightSimulator.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/LightSimulator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/Measurement.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/Measurement.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/Simulator.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/Simulator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/simulator/TemperatureSimulator.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/TemperatureSimulator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/sensor/utility/Logging.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/utility/Logging.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/server/AppSdp.class" afterPath="$PROJECT_DIR$/target/classes/server/AppSdp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/server/SensorsApi.class" afterPath="$PROJECT_DIR$/target/classes/server/SensorsApi.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/server/UsersApi.class" afterPath="$PROJECT_DIR$/target/classes/server/UsersApi.class" />
@@ -108,17 +23,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/SensorData.class" afterPath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/SensorData.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/SensorsDB.class" afterPath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/SensorsDB.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/UsersDB.class" afterPath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/data/UsersDB.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/AppSdp.java" afterPath="$PROJECT_DIR$/src/main/java/server/AppSdp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/SensorsApi.java" afterPath="$PROJECT_DIR$/src/main/java/server/SensorsApi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/UsersApi.java" afterPath="$PROJECT_DIR$/src/main/java/server/UsersApi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/GenericDB.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/GenericDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/MeasurementsDB.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/MeasurementsDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/SensorBuffer.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/SensorBuffer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/SensorData.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/SensorData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/SensorsDB.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/SensorsDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/data/UsersDB.java" afterPath="$PROJECT_DIR$/src/main/java/server/data/UsersDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/Client/src/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sensor/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/Sensor/src/META-INF/MANIFEST.MF" />
     </list>
     <ignored path="ProgettoSdp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1112,7 +1019,7 @@
       <workItem from="1464426755289" duration="8714000" />
       <workItem from="1467382130306" duration="15322000" />
       <workItem from="1467400693189" duration="13295000" />
-      <workItem from="1467448610365" duration="3280000" />
+      <workItem from="1467448610365" duration="3322000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1463414880628</created>
@@ -1121,11 +1028,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463414880628</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="A Looooooot of changes">
+      <created>1467451908402</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1467451908402</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153348000" />
+    <option name="totallyTimeSpent" value="153390000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
