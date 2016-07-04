@@ -1,6 +1,9 @@
 package server;
 
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import server.client.ClientRequest;
 import server.client.MeasurementsByFilter;
 import server.client.UserData;
@@ -32,9 +35,16 @@ public class UsersApi {
     private final static MeasurementsDB measurementsDB = MeasurementsDB.getInstance();
     private final static SensorsDB sensorsDB = SensorsDB.getInstance();
 
-    static void sendPush(String message) throws IOException {
+    static void sendPush(String id, String type, String address,String port,String event) throws IOException {
         synchronized (usersDB) {
+            JsonObject obj=new JsonObject();
+            obj.add("id", new JsonPrimitive(id));
+            obj.add("type", new JsonPrimitive(type));
+            obj.add("address", new JsonPrimitive(address));
+            obj.add("port", new JsonPrimitive(port));
+            obj.add("event",new JsonPrimitive(event));
             DatagramSocket ds = new DatagramSocket();
+            String message=obj.toString();
             for (UserData user : usersDB.readAll()) {
                 DatagramPacket dp = new DatagramPacket(message.getBytes(), message.getBytes().length, InetAddress.getByName(user.address), user.port);
                 System.out.println("Sending push to " + dp.toString());

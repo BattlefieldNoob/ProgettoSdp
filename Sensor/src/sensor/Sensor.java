@@ -43,7 +43,7 @@ public class Sensor {
         log = Logging.getInstance(id, type);
         log.info("I am" + id + " " + type + " " + port, getClass().getSimpleName());
         sensor = new SensorSimulator(id, type);
-        thisSensor = new SensorData(id, type, InetAddress.getByName(gatewayAddress).toString(), port);
+        thisSensor = new SensorData(id, type, "localhost", port);
         networkSensors = new LinkedList<>();
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
         target = client.target("http://" + gatewayAddress + ":8080");
@@ -80,7 +80,7 @@ public class Sensor {
                             inputThread.inputThreads.getFirst().expectedException = true;
                         sensor.stopMeGently();
                         announceSensorExit();
-                        log.info(String.valueOf(target.path("/{id}").resolveTemplate("id", id).request().delete().getStatus()), getClass().getSimpleName());
+                        String.valueOf(target.path("/{id}").resolveTemplate("id", id).request().delete().getStatus());
                         if (nextSensor != null)
                             exitlock.wait();//aspetto l'ok a morire
                         System.out.println("exitLock passed");

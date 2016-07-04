@@ -1,3 +1,8 @@
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import jdk.nashorn.internal.parser.JSONParser;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -29,7 +34,16 @@ class PushThread extends Thread {
                 byte[] buffer = new byte[1024];
                 DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
                 ds.receive(dp);
-                System.out.println("Received: " + new String(dp.getData(), 0, dp.getLength()));
+                String event =new String(dp.getData(), 0, dp.getLength());
+                JsonParser parser=new JsonParser();
+                JsonObject obj=parser.parse(event).getAsJsonObject();
+                if(obj.getAsJsonPrimitive("event").getAsString().equals("Enter")){
+                    System.out.println("Sensor "+obj.getAsJsonPrimitive("id").getAsString()+" (type="+ obj.getAsJsonPrimitive("type").getAsString()+
+                            ") at "+obj.getAsJsonPrimitive("address").getAsString()+":"+obj.getAsJsonPrimitive("port").getAsString()+" Entered into network");
+                }else{
+                    System.out.println("Sensor "+obj.getAsJsonPrimitive("id").getAsString()+" (type="+ obj.getAsJsonPrimitive("type").getAsString()+
+                            ") at "+obj.getAsJsonPrimitive("address").getAsString()+":"+obj.getAsJsonPrimitive("port").getAsString()+" Left the network");
+                }
             }
         } catch (SocketException e) {
         } catch (IOException e) {

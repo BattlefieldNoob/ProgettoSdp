@@ -51,7 +51,7 @@ public class SensorsApi {
         System.out.println(sensor);
         sensorsDB.create(sensor);
         try {
-            UsersApi.sendPush(sensor + " Entered");
+            UsersApi.sendPush(sensor.getId(),sensor.getType(),sensor.getAddress(),String.valueOf(sensor.getPort()),"Enter");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,9 +63,10 @@ public class SensorsApi {
     @Path("/{id}")
     public Response deleteSensor(@PathParam("id") String id) {
         System.out.println("A Sensor is exiting from the network");
+        SensorData sensor=sensorsDB.read(id);
         sensorsDB.delete(id);
         try {
-            UsersApi.sendPush(id + " Exited");
+            UsersApi.sendPush(sensor.getId(),sensor.getType(),sensor.getAddress(),String.valueOf(sensor.getPort()),"Exit");
         } catch (IOException e) {
             e.printStackTrace();
         }

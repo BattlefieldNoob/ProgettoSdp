@@ -8,7 +8,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -19,8 +21,9 @@ import java.util.concurrent.Future;
  */
 public class Client {
 
-    static Scanner scanner;
-    static WebTarget target;
+    private static Scanner scanner;
+    private static WebTarget target;
+
     public static void main(String[] argv) throws ExecutionException, InterruptedException, IOException {
         if (argv.length <= 0) {
             System.out.println("Please specify gateway address");
@@ -58,6 +61,7 @@ public class Client {
                     System.out.println("[1] Ask Filtered Measurements by ID");
                     System.out.println("[2] Ask Filtered Measurements by Type");
                     System.out.println("[3] Ask Last Measurement by Sensor");
+                    System.out.println("[-1] Log out and Exit");
                     choose = scanner.nextInt();
                     int chooseSensor = 0;
                     switch (choose) {
@@ -72,9 +76,15 @@ public class Client {
                             }
                             break;
                         case 2:
-                            System.out.println("Available Sensors:");
+                            List<String> types=new LinkedList<>();
                             for (int i = 0; i < list.get().size(); i++) {
-                                System.out.println("[" + (i + 1) + "] " + list.get().get(i).toClientInterface());
+                                if(!types.contains(list.get().get(i).getType())){
+                                    types.add(list.get().get(i).getType());
+                                }
+                            }
+                            System.out.println("Available Types:");
+                            for (int i = 0; i < types.size(); i++) {
+                                System.out.println("[" + (i + 1) + "] " + types.get(i));
                             }
                             chooseSensor = scanner.nextInt();
                             if (chooseSensor > 0 && chooseSensor <= list.get().size()) {
@@ -94,11 +104,12 @@ public class Client {
 
                     }
                 }
-                System.out.println("Press enter for return to main page (will clear this measurements)");
-                System.in.read();
-                clearScreen();
                 if (choose == -1) {
                     break;
+                }else{
+                    System.out.println("Press enter for return to main page (will clear this measurements)");
+                    System.in.read();
+                    clearScreen();
                 }
             }
             thread.stopMe();
@@ -106,7 +117,6 @@ public class Client {
             if (res == 200) {
                 System.out.println("Closed");
             }
-
             System.exit(0);
         }
     }
@@ -130,7 +140,7 @@ public class Client {
             c.set(Calendar.DAY_OF_MONTH, 1);
             t1long = c.getTimeInMillis();
         } else {
-            System.out.println("errore, riprovare");
+            System.out.println("Wrong Format, Retry");
             return;
         }
         System.out.println("Enter t2 (format HH:MM)");
@@ -140,18 +150,17 @@ public class Client {
             c.set(Calendar.MINUTE, Integer.parseInt(t2.split(":")[1]));
             t2long = c.getTimeInMillis();
         } else {
-            System.out.println("errore, riprovare");
+            System.out.println("Wrong Format, Retry");
             return;
         }
         Future<MeasurementsByFilter> result = target.path("user/measurements/" + (requestById ? "BySensor" : "ByType")).request().buildPost(Entity.json(new ClientRequest(id, type, t1long, t2long))).submit(new GenericType<MeasurementsByFilter>() {
         });
+        DecimalFormat df=new DecimalFormat("###.000");
         try {
-            System.out.println("Max:" + result.get().max);
-            System.out.println("Average:" + result.get().mid);
-            System.out.println("Min:" + result.get().min);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            System.out.println("Max:" + df.format(result.get().max));
+            System.out.println("Average:" + df.format(result.get().mid));
+            System.out.println("Min:" + df.format(result.get().min));
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -159,14 +168,11 @@ public class Client {
     public static void getLastMeasurement(String id, String type) {
         Future<Measurement> listM = target.path("user/measurements/{key}").resolveTemplate("key", id + "-" + type).request().buildGet().submit(new GenericType<Measurement>() {
         });
-        Measurement measurement = null;
         try {
-            measurement = listM.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            DecimalFormat df=new DecimalFormat("###.000");
+            System.out.println("Last Measurement:"+df.format(Double.parseDouble(listM.get().getValue())));
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        System.out.println(measurement.getValue());
     }
 }
