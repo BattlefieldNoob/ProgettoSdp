@@ -1,7 +1,6 @@
 package server;
 
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import server.client.ClientRequest;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,14 +82,11 @@ public class UsersApi {
     public MeasurementsByFilter getMeasurementBySensor(final ClientRequest request) {
         //ottenere il min, mid, max da un sensore secondo l'id
         List<Measurement> t1t2Filter = measurementsDB.readById(request.id).stream().filter(m -> m.getTimestamp() > request.t1 && m.getTimestamp() < request.t2).collect(Collectors.toList());
-        t1t2Filter.sort(new Comparator<Measurement>() {
-            @Override
-            public int compare(Measurement measurement, Measurement t1) {
-                if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+        t1t2Filter.sort((measurement, t1) -> {
+            if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
+                return 1;
+            } else {
+                return -1;
             }
         });
         String min = t1t2Filter.get(0).getValue();
@@ -109,14 +104,11 @@ public class UsersApi {
     public MeasurementsByFilter getMeasurementByType(final ClientRequest request) {
         //ottenere il min, mid, max da un sensore secondo l'id
         List<Measurement> t1t2Filter = filterInT1T2(measurementsDB.readById(request.id), request.t1, request.t2);
-        t1t2Filter.sort(new Comparator<Measurement>() {
-            @Override
-            public int compare(Measurement measurement, Measurement t1) {
-                if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+        t1t2Filter.sort((measurement, t1) -> {
+            if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
+                return 1;
+            } else {
+                return -1;
             }
         });
         String min = t1t2Filter.get(0).getValue();

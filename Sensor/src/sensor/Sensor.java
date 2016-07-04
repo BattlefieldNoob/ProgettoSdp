@@ -1,5 +1,6 @@
 package sensor;
 
+import sensor.Factories.AbstractSensorFactory;
 import sensor.data.Event;
 import sensor.data.Token;
 import sensor.simulator.Measurement;
@@ -42,7 +43,10 @@ public class Sensor {
         //prendo l'elemento in posizione
         log = Logging.getInstance(id, type);
         log.info("I am" + id + " " + type + " " + port, getClass().getSimpleName());
-        sensor = new SensorSimulator(id, type);
+
+        AbstractSensorFactory factory=AbstractSensorFactory.getFactory(type);
+        sensor = factory.createSensorSimulator(id);
+
         thisSensor = new SensorData(id, type, "localhost", port);
         networkSensors = new LinkedList<>();
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
