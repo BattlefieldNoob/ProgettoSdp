@@ -16,6 +16,7 @@ import java.net.Socket;
  */
 class SensorOutputThread extends Thread {
     boolean expectedException = false;
+    boolean waitingForConnection=true;
     private DataOutputStream out;
     private DataInputStream in;
     private Socket nextSocket;
@@ -54,16 +55,17 @@ class SensorOutputThread extends Thread {
 
     void configureConnectionWithNext(SensorData next) throws InterruptedException, IOException {
         nextSensor = next;
-        if (next == null) {
+       /* if (next == null) {
             lastSendToCurrentNext = true;
-        } else {
+        } else {*/
             log.info("Next Sensor:" + next.getAddress() + ":" + next.getPort(), getClass().getSimpleName());
             if (nextSocket != null && !nextSocket.isClosed() && nextSocket.getInetAddress().equals(InetAddress.getByName(next.getAddress())) && nextSocket.getPort() == next.getPort()) {
                 log.info("Already connected to next", getClass().getSimpleName());
+                lastSendToCurrentNext = false;
             } else {
                 lastSendToCurrentNext = true;
             }
-        }
+      //  }
     }
 
     void stopMe() {
@@ -138,6 +140,7 @@ class SensorOutputThread extends Thread {
                                     nextSocket = new Socket(nextSensor.getAddress(), nextSensor.getPort());
                                     out = new DataOutputStream(nextSocket.getOutputStream());
                                     in = new DataInputStream(nextSocket.getInputStream());
+                                    log.info("Next say :"+in.readUTF(), getClass().getSimpleName());
                                     log.info("Connected to nextSocket", getClass().getSimpleName());
                                     connected = true;
                                 } catch (IOException e) {

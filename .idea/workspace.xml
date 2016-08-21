@@ -7,19 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f438965c-3ba0-4031-a168-57fd38bf698e" name="Default" comment="A Looooooot of changesssssssss">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/Factories/AbstractSensorFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/Factories/AccelerometerSensorFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/Factories/LightSensorFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sensor/src/sensor/Factories/TemperatureSensorFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/simulator/SensorSimulator$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/simulator/SensorSimulator$SensorTimerTask.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/Sensor$1.class" afterPath="$PROJECT_DIR$/out/production/Sensor/sensor/Sensor$1.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/server/UsersApi$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/server/UsersApi$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/UsersApi$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/UsersApi$2.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/Factories/AccelerometerSensorFactory$SlidingWindow.class" afterPath="$PROJECT_DIR$/out/production/Sensor/sensor/Factories/AccelerometerSensorFactory$SlidingWindow.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/Sensor.class" afterPath="$PROJECT_DIR$/out/production/Sensor/sensor/Sensor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/simulator/SensorSimulator.class" afterPath="$PROJECT_DIR$/out/production/Sensor/sensor/simulator/SensorSimulator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Sensor/sensor/SensorOutputThread.class" afterPath="$PROJECT_DIR$/out/production/Sensor/sensor/SensorOutputThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/server/UsersApi.class" afterPath="$PROJECT_DIR$/target/classes/server/UsersApi.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/UsersApi.class" afterPath="$PROJECT_DIR$/target/jersey-example/WEB-INF/classes/server/UsersApi.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sensor/src/sensor/Sensor.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/Sensor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulator.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/server/UsersApi.java" afterPath="$PROJECT_DIR$/src/main/java/server/UsersApi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java" afterPath="$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java" />
     </list>
     <ignored path="ProgettoSdp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,35 +43,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractSensorFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/AbstractSensorFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#848#849#0" expanded="true" />
-                <element signature="e#950#951#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemperatureSensorFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/TemperatureSensorFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="17" selection-start-line="18" selection-start-column="8" selection-end-line="19" selection-end-column="79" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#291#292#0" expanded="true" />
-                <element signature="e#373#374#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsersApi.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UsersApi.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/server/UsersApi.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
@@ -81,14 +53,52 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="SensorOutputThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="448">
+              <caret line="145" column="57" selection-start-line="145" selection-start-column="57" selection-end-line="145" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensorServerThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensorInputThread.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sensor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Sensor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="187" column="18" selection-start-line="187" selection-start-column="18" selection-end-line="187" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="AccelerometerSensorFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/AccelerometerSensorFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
+            <state relative-caret-position="450">
               <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -96,9 +106,15 @@
       <file leaf-file-name="Simulator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/Simulator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="126">
               <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#676#677#0" expanded="false" />
+                <element signature="e#712#713#0" expanded="false" />
+                <element signature="e#1383#1384#0" expanded="false" />
+                <element signature="e#1443#1444#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,35 +145,6 @@
             <state relative-caret-position="162">
               <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LightSensorFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/LightSensorFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="9" selection-start-line="12" selection-start-column="4" selection-end-line="22" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#303#304#0" expanded="true" />
-                <element signature="e#379#380#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorSimulator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-              <folding>
-                <element signature="e#621#622#0" expanded="true" />
-                <element signature="e#679#680#0" expanded="true" />
-                <element signature="e#713#714#0" expanded="true" />
-                <element signature="e#759#760#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -204,14 +191,11 @@
         <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorComputeThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/data/SensorBuffer.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/data/SensorBuffer.java" />
-        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/data/SensorData.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/LightSimulator.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/AccelerometerSimulator.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/Accelerometer.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/TestSensor.java" />
-        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java" />
-        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/data/UsersDB.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/data/SensorsDB.java" />
         <option value="$PROJECT_DIR$/Client/src/MeasurementsBySensor.java" />
@@ -227,13 +211,16 @@
         <option value="$PROJECT_DIR$/Sensor/src/sensor/AbstractSensorFactory.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/AbstractSensorFactory.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulatorInterface.java" />
-        <option value="$PROJECT_DIR$/Sensor/src/sensor/Sensor.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/Factories/LightSensorFactory.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/Factories/TemperatureSensorFactory.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/Factories/AbstractSensorFactory.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulator.java" />
         <option value="$PROJECT_DIR$/Sensor/src/sensor/Factories/AccelerometerSensorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/UsersApi.java" />
+        <option value="$PROJECT_DIR$/Sensor/src/sensor/Sensor.java" />
+        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java" />
+        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java" />
+        <option value="$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java" />
       </list>
     </option>
   </component>
@@ -330,7 +317,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -393,9 +379,64 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProgettoSdp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sensor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -1121,7 +1162,8 @@
       <workItem from="1467640812616" duration="26000" />
       <workItem from="1467641024333" duration="43000" />
       <workItem from="1467641157846" duration="7000" />
-      <workItem from="1467641480866" duration="4288000" />
+      <workItem from="1467641480866" duration="4897000" />
+      <workItem from="1468773959168" duration="2569000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1463414880628</created>
@@ -1155,7 +1197,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184174000" />
+    <option name="totallyTimeSpent" value="187352000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1168,7 +1210,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="22" width="1922" height="1058" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1180,7 +1222,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0699894" sideWeight="0.4978701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61187696" sideWeight="0.4978701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3376206" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1253,13 +1295,6 @@
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorUssaroThread.java" />
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/DataProva.java" />
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/ProvaMisurazioni.java" />
-    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/data/Ussaro.java" />
     <entry file="file://$PROJECT_DIR$/Sensor/src/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
@@ -1301,13 +1336,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -1403,14 +1431,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/client/MeasurementsByType.java" />
-    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1872">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1836">
@@ -1422,7 +1442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1444,7 +1463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="6" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1452,49 +1470,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
           <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulatorInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/SensorSimulatorInterface.java" />
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/LightSimulator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Sensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/LightSensorFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="198">
           <caret line="15" column="9" selection-start-line="12" selection-start-column="4" selection-end-line="22" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#303#304#0" expanded="true" />
-            <element signature="e#379#380#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#303#304#0" expanded="false" />
+            <element signature="e#379#380#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/AbstractSensorFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
+        <state relative-caret-position="450">
           <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1506,13 +1507,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/TemperatureSensorFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
+        <state relative-caret-position="270">
           <caret line="18" column="17" selection-start-line="18" selection-start-column="8" selection-end-line="19" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#291#292#0" expanded="true" />
-            <element signature="e#373#374#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1533,7 +1530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1563,19 +1559,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/simulator/Simulator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="126">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#676#677#0" expanded="false" />
+            <element signature="e#712#713#0" expanded="false" />
+            <element signature="e#1383#1384#0" expanded="false" />
+            <element signature="e#1443#1444#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Factories/AccelerometerSensorFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
+        <state relative-caret-position="450">
           <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1583,6 +1583,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/Sensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="187" column="18" selection-start-line="187" selection-start-column="18" selection-end-line="187" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorServerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorOutputThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="145" column="57" selection-start-line="145" selection-start-column="57" selection-end-line="145" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sensor/src/sensor/SensorInputThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
           <folding />
         </state>
       </provider>

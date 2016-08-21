@@ -30,7 +30,7 @@ public class Sensor {
     Queue<Event> eventBuffer = new PriorityQueue<>();
     SensorSimulator sensor;
     WebTarget target;
-    private SensorData thisSensor;
+    public SensorData thisSensor;
     private SensorOutputThread outputThread;
     private SensorServerThread inputThread;
     private List<SensorData> networkSensors;
@@ -59,7 +59,8 @@ public class Sensor {
             networkSensors = res.get();
         }
         outputThread = new SensorOutputThread(this, outputlock);//mi connetto con il successivo
-        nextSensor = findNextSensor();
+      //  nextSensor = findNextSensor();
+        nextSensor = getNextSensor();
         if (nextSensor != null)
             outputThread.configureConnectionWithNext(nextSensor);
         inputThread = new SensorServerThread(this, port);
@@ -184,7 +185,8 @@ public class Sensor {
                 log.info("a Sensor is exiting", getClass().getSimpleName());
             }
             try {
-                nextSensor = findNextSensor();
+               // nextSensor = findNextSensor();
+                nextSensor = getNextSensor();
                 outputThread.configureConnectionWithNext(nextSensor);
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -246,6 +248,15 @@ public class Sensor {
             sendToMyself = false;
             return networkSensors.get(index);
         }
+    }
+
+    private SensorData getNextSensor(){
+        int index = networkSensors.indexOf(thisSensor) + 1;
+        if (index >= networkSensors.size()) {
+            index = 0;
+        }
+        sendToMyself = false;
+        return networkSensors.get(index);
     }
 
     private void announceSensorEnter() {

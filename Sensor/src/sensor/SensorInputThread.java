@@ -31,6 +31,7 @@ class SensorInputThread extends Thread {
         this.socket = socket;
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
+        out.writeUTF("OK");
         start();
     }
 
