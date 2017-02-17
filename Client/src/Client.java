@@ -7,7 +7,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -58,6 +59,7 @@ public class Client {
                     System.out.println("No Sensors Available, please wait [-1 for exiting, enter for refresh]");
                     choose = scanner.nextInt();
                 } else {
+                    System.out.println("[4] Start and insert a new sensor");
                     System.out.println("[1] Ask Filtered Measurements by ID");
                     System.out.println("[2] Ask Filtered Measurements by Type");
                     System.out.println("[3] Ask Last Measurement by Sensor");
@@ -101,6 +103,9 @@ public class Client {
                                 getLastMeasurement(list.get().get(chooseSensor - 1).getId(), list.get().get(chooseSensor - 1).getType());
                             }
                             break;
+                        case 4:
+                            System.out.println("Starting Sensor.....");
+                            startSensor();
 
                     }
                 }
@@ -173,6 +178,40 @@ public class Client {
             System.out.println("Last Measurement:"+df.format(Double.parseDouble(listM.get().getValue())));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        }
+    }
+
+    static void startSensor(){
+        Process ps= null;
+        System.out.println(new File("").getAbsoluteFile());
+        try {
+            ps = Runtime.getRuntime().exec(new String[]{"java","-jar","test.jar"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scanner in=new Scanner(ps.getInputStream());
+       /* java.io.InputStream is=ps.getInputStream();
+        byte b[]= new byte[0];
+        try {
+            b = new byte[is.available()];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            is.read(b,0,b.length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(new String(b));*/
+            System.out.println(in.nextLine());
+        OutputStream out = ps.getOutputStream();
+        while (true) {
+            try {
+                out.write("a".getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(in.nextLine());
         }
     }
 }

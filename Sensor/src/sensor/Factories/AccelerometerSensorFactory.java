@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by antonio on 04/07/16.
  */
-class AccelerometerSensorFactory extends AbstractSensorFactory{
+class AccelerometerSensorFactory extends AbstractSensorFactory {
 
     private final Buffer<Measurement> buffer=new SensorBuffer();
 

@@ -1,5 +1,7 @@
 package sensor.data;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import sensor.simulator.Buffer;
 import sensor.simulator.Measurement;
 

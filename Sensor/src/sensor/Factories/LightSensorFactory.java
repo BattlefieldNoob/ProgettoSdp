@@ -3,8 +3,6 @@ package sensor.Factories;
 import sensor.data.SensorBuffer;
 import sensor.simulator.*;
 
-import java.util.List;
-
 /**
  * Created by antonio on 04/07/16.
  */

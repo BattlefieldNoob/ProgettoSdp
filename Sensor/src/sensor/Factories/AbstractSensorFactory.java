@@ -1,7 +1,6 @@
 package sensor.Factories;
 
 import sensor.simulator.SensorSimulator;
-import sensor.utility.Logging;
 
 /**
  * Created by antonio on 04/07/16.
@@ -24,7 +23,7 @@ abstract public class AbstractSensorFactory {
 
     public abstract SensorSimulator createSensorSimulator(String id);
 
-    private static class ErrorSensor extends AbstractSensorFactory{
+    private static class ErrorSensor extends AbstractSensorFactory {
 
         ErrorSensor(String type){
             System.err.println("Type not recognized ("+type+"), Please Stop this program");
