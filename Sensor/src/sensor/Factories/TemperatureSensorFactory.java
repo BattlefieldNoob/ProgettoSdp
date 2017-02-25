@@ -8,15 +8,10 @@ import sensor.simulator.*;
  */
 public class TemperatureSensorFactory extends AbstractSensorFactory {
 
-    Buffer<Measurement> buffer=new SensorBuffer();
-
-    public TemperatureSensorFactory(){
-        System.out.println("factory of type temperature has been created");
-    }
+    public Buffer<Measurement> buffer=new SensorBuffer();
 
     @Override
     public SensorSimulator createSensorSimulator(String id) {
-        System.out.println("Sensor of type temperature has been created");
         return new SensorSimulator(new TemperatureSimulator(id,buffer),buffer);
     }
 }

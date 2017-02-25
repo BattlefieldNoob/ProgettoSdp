@@ -1,9 +1,7 @@
 package sensor.data;
 
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import server.data.SensorData;
+import server.sensor.SensorData;
 
 /**
  * Created by antonio on 13/05/16.

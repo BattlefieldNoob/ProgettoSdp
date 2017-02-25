@@ -2,8 +2,9 @@ package server;
 
 
 import server.data.MeasurementsDB;
-import server.data.SensorData;
+import server.sensor.SensorData;
 import server.data.SensorsDB;
+import server.sensor.ServerResponse;
 import server.simulator.Measurement;
 
 import javax.ws.rs.*;
@@ -46,31 +47,36 @@ public class SensorsApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<SensorData> addSensor(SensorData sensor) {
+    public ServerResponse addSensor(SensorData sensor) {
         System.out.println("A Sensor want to enter into the network");
-        System.out.println(sensor);
-        sensorsDB.create(sensor);
-        try {
-            UsersApi.sendPush(sensor.getId(),sensor.getType(),sensor.getAddress(),String.valueOf(sensor.getPort()),"Enter");
-        } catch (IOException e) {
-            e.printStackTrace();
+        ServerResponse response=new ServerResponse();
+        int result=sensorsDB.create(sensor);
+        if(result!=-1) {
+            response=new ServerResponse(sensor.getPort(),sensor.getId(),sensorsDB.readAll());
+            try {
+                UsersApi.sendPush(sensor.getId(), sensor.getType(), sensor.getAddress(), String.valueOf(sensor.getPort()), "Enter");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        //TODO: controllare che non ci sia un altro sensore con lo stesso ID
-        return sensorsDB.readAll();
+        return response;
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteSensor(@PathParam("id") String id) {
         System.out.println("A Sensor is exiting from the network");
-        SensorData sensor=sensorsDB.read(id);
-        sensorsDB.delete(id);
-        try {
-            UsersApi.sendPush(sensor.getId(),sensor.getType(),sensor.getAddress(),String.valueOf(sensor.getPort()),"Exit");
-        } catch (IOException e) {
-            e.printStackTrace();
+        SensorData sensor = sensorsDB.read(id);
+        Response response=Response.serverError().build();
+        if (sensorsDB.delete(id)){
+            try {
+                UsersApi.sendPush(sensor.getId(), sensor.getType(), sensor.getAddress(), String.valueOf(sensor.getPort()), "Exit");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            response=Response.ok().build();
         }
-        return Response.ok().build();
+        return response;
     }
 
     @POST

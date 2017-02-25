@@ -20,7 +20,6 @@ class AccelerometerSensorFactory extends AbstractSensorFactory {
 
     @Override
     public SensorSimulator createSensorSimulator(String id) {
-        System.out.println("Sensor of type accelerometer has been created");
         timer.schedule(new SlidingWindow(),0,1000);
         return new SensorSimulator(new AccelerometerSimulator(id,buffer),slidingWindowBuffer);
     }

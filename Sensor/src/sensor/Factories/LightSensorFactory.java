@@ -8,14 +8,10 @@ import sensor.simulator.*;
  */
 public class LightSensorFactory extends AbstractSensorFactory {
 
-    Buffer<Measurement> buffer=new SensorBuffer();
+    private Buffer<Measurement> buffer=new SensorBuffer();
 
-    public LightSensorFactory(){
-        System.out.println("factory of type light has been created");
-    }
     @Override
     public SensorSimulator createSensorSimulator(String id) {
-        System.out.println("Sensor of type light has been created");
         return new SensorSimulator(new LightSimulator(id,buffer),buffer);
     }
 }

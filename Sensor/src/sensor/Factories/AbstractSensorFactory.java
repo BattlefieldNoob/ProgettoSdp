@@ -8,7 +8,6 @@ import sensor.simulator.SensorSimulator;
 abstract public class AbstractSensorFactory {
 
     public static AbstractSensorFactory getFactory(String type){
-        System.out.println("return factory for type "+type);
         switch (type){
             case "light":
                 return new LightSensorFactory();

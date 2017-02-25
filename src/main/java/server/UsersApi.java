@@ -7,7 +7,8 @@ import server.client.ClientRequest;
 import server.client.MeasurementsByFilter;
 import server.client.UserData;
 import server.data.MeasurementsDB;
-import server.data.SensorData;
+import server.data.ServerData;
+import server.sensor.SensorData;
 import server.data.SensorsDB;
 import server.data.UsersDB;
 import server.simulator.Measurement;
@@ -70,6 +71,23 @@ public class UsersApi {
     }
 
     @GET
+    @Path("/measurements/types")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ServerData> getAllSensorsType() {
+        System.out.println("A user request all types of sensors");
+        return measurementsDB.getAllTypes();
+    }
+
+    @GET
+    @Path("/measurements/ids")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ServerData> getAllSensorsId() {
+        System.out.println("A user request all sensors id");
+        return measurementsDB.getAllIDs();
+    }
+
+
+    @GET
     @Path("/measurements/{key}")
     @Produces(MediaType.APPLICATION_JSON)
     public Measurement getLastMeasurement(@PathParam("key") String key) {
@@ -81,7 +99,8 @@ public class UsersApi {
     @Path("/measurements/BySensor")
     public MeasurementsByFilter getMeasurementBySensor(final ClientRequest request) {
         //ottenere il min, mid, max da un sensore secondo l'id
-        List<Measurement> t1t2Filter = measurementsDB.readById(request.id).stream().filter(m -> m.getTimestamp() > request.t1 && m.getTimestamp() < request.t2).collect(Collectors.toList());
+        List<Measurement> t1t2Filter = measurementsDB.readById(request.id);
+        if(!t1t2Filter.isEmpty()) {
         t1t2Filter.sort((measurement, t1) -> {
             if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
                 return 1;
@@ -89,36 +108,60 @@ public class UsersApi {
                 return -1;
             }
         });
-        String min = t1t2Filter.get(0).getValue();
-        String max = t1t2Filter.get(t1t2Filter.size() - 1).getValue();
-        double acc = 0;
-        for (Measurement m : t1t2Filter) {
-            acc += Double.valueOf(m.getValue());
+
+        if(request.t2<t1t2Filter.get(0).getTimestamp()){
+                return new MeasurementsByFilter("TOO-EARLY");
+        }else if(request.t1> t1t2Filter.get(t1t2Filter.size()-1).getTimestamp()){
+            return new MeasurementsByFilter("TOO-LATE");
+        }else {
+            t1t2Filter=t1t2Filter.stream().filter(m -> m.getTimestamp() > request.t1 && m.getTimestamp() < request.t2).collect(Collectors.toList());
+            String min = t1t2Filter.get(0).getValue();
+            String max = t1t2Filter.get(t1t2Filter.size() - 1).getValue();
+            double acc = 0;
+            for (Measurement m : t1t2Filter) {
+                acc += Double.valueOf(m.getValue());
+            }
+            acc = acc / t1t2Filter.size();
+            return new MeasurementsByFilter(request.id, request.t1, request.t2, Double.valueOf(min), acc, Double.valueOf(max));
         }
-        acc = acc / t1t2Filter.size();
-        return new MeasurementsByFilter(request.id, request.t1, request.t2, Double.valueOf(min), acc, Double.valueOf(max));
+        }else{
+            return new MeasurementsByFilter("NO-DATA");
+        }
     }
 
     @POST
     @Path("/measurements/ByType")
     public MeasurementsByFilter getMeasurementByType(final ClientRequest request) {
         //ottenere il min, mid, max da un sensore secondo l'id
-        List<Measurement> t1t2Filter = filterInT1T2(measurementsDB.readById(request.id), request.t1, request.t2);
-        t1t2Filter.sort((measurement, t1) -> {
-            if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
-                return 1;
-            } else {
-                return -1;
+
+        List<Measurement> t1t2Filter = measurementsDB.readById(request.type);
+        if(!t1t2Filter.isEmpty()) {
+            t1t2Filter.sort((measurement, t1) -> {
+                if (Double.valueOf(measurement.getValue()) > Double.valueOf(t1.getValue())) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+
+            if(request.t2<t1t2Filter.get(0).getTimestamp()){
+                return new MeasurementsByFilter("TOO-EARLY");
+            }else if(request.t1> t1t2Filter.get(t1t2Filter.size()-1).getTimestamp()){
+                return new MeasurementsByFilter("TOO-LATE");
+            }else {
+                t1t2Filter=t1t2Filter.stream().filter(m -> m.getTimestamp() > request.t1 && m.getTimestamp() < request.t2).collect(Collectors.toList());
+                String min = t1t2Filter.get(0).getValue();
+                String max = t1t2Filter.get(t1t2Filter.size() - 1).getValue();
+                double acc = 0;
+                for (Measurement m : t1t2Filter) {
+                    acc += Double.valueOf(m.getValue());
+                }
+                acc = acc / t1t2Filter.size();
+                return new MeasurementsByFilter(request.id, request.t1, request.t2, Double.valueOf(min), acc, Double.valueOf(max));
             }
-        });
-        String min = t1t2Filter.get(0).getValue();
-        String max = t1t2Filter.get(t1t2Filter.size() - 1).getValue();
-        double acc = 0;
-        for (Measurement m : t1t2Filter) {
-            acc += Double.valueOf(m.getValue());
+        }else{
+            return new MeasurementsByFilter("NO-DATA");
         }
-        acc = acc / t1t2Filter.size();
-        return new MeasurementsByFilter(request.id, request.t1, request.t2, Double.valueOf(min), acc, Double.valueOf(max));
     }
 
 

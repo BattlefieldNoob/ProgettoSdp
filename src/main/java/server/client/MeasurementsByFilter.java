@@ -13,6 +13,8 @@ public class MeasurementsByFilter {
     public long t2;
     public double min, mid, max;
 
+    public String status="OK";
+
     public MeasurementsByFilter(String id, long t1, long t2, double min, double mid, double max) {
         this.id = id;
         this.t1 = t1;
@@ -20,6 +22,10 @@ public class MeasurementsByFilter {
         this.min = min;
         this.mid = mid;
         this.max = max;
+    }
+
+    public MeasurementsByFilter(String status) {
+        this.status=status;
     }
 
     public MeasurementsByFilter() {

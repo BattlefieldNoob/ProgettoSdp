@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import sensor.data.Event;
 import sensor.data.Token;
+import sensor.data.TokenLostEvent;
 import sensor.utility.Logging;
-import server.data.SensorData;
+import server.sensor.SensorData;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +17,7 @@ import java.net.Socket;
  * Created by antonio on 11/05/16.
  */
 class SensorOutputThread extends Thread {
+
     private DataOutputStream out;
     private DataInputStream in;
     private Socket nextSocket;
@@ -26,7 +28,9 @@ class SensorOutputThread extends Thread {
     private Gson gson = new Gson();
     private SensorData sensorToDelete=null;
     private boolean waitForInsertReturn=false;
+    private boolean waitForTokenLostReturn=false;
     private Object toElaborate;
+
 
     SensorOutputThread(SensorHandle thisSensor, Object lockObject) throws IOException {
         this.lock = lockObject;
@@ -34,27 +38,41 @@ class SensorOutputThread extends Thread {
     }
 
 
-    private boolean connectWithNext() throws IOException {
+    private boolean connectWithNext() {
         boolean connected = false;
-        SensorData next = sensor.getNextSensor();
-        nextSocket = new Socket(next.getAddress(), next.getPort());//connetto con il successivo
-        out = new DataOutputStream(nextSocket.getOutputStream());//ottengo gli stream
-        in = new DataInputStream(nextSocket.getInputStream());
-        //attendo che il successivo mi invii il messaggio "OK"
-        System.out.println("Wait for OK from next");
-        String msg = in.readUTF();
-        if (msg.equals("OK"))
-            connected = true;
-        if (!connected) {
-            in = null;
-            out = null;
-            if (nextSocket != null)
+        int maxTry = 5;
+        int currentTry;
+        do {
+            SensorData next = sensor.getNextSensor();
+            currentTry=0;
+            do {
                 try {
-                    nextSocket.close();
+                    nextSocket = new Socket(next.getAddress(), next.getPort());//connetto con il successivo
+
+                    out = new DataOutputStream(nextSocket.getOutputStream());//ottengo gli stream
+                    in = new DataInputStream(nextSocket.getInputStream());
+                    //attendo che il successivo mi invii il messaggio "OK"
+                    String msg = in.readUTF();
+                    connected = msg.equals("OK");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.info("Connection attempt " + (currentTry + 1) + " to "+ next.getId()+" failed", getClass().getSimpleName());
+                    try {
+                        currentTry++;
+                        connected = false;
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ee) {
+                        ee.printStackTrace();
+                    }
                 }
-        }
+
+            } while (currentTry < maxTry && !connected);
+            if (currentTry >= maxTry) {
+                //non riesco a connettermi al successivo, quindi lo tolgo dalla lisa e avviso il gateway
+                sensorToDelete = sensor.getNextSensor();
+                sensor.sensorIsDead(sensorToDelete);
+                DeleteSensor();
+            }
+        }while(!connected);
         return connected;
     }
 
@@ -80,7 +98,6 @@ class SensorOutputThread extends Thread {
             try {
                 if(running) {
                     if (!SensorHandle.commonBuffer.isDataAvailable()) {// se non è disponibile qualcosa da inviare, attendo che lo sia
-                        log.info("Waiting for data from:"+sensor.getNextSensor(), getClass().getSimpleName());
                         synchronized (lock) {
                             lock.wait(); //interrompo il thread finchè non ci sono dati
                         }
@@ -117,64 +134,76 @@ class SensorOutputThread extends Thread {
 
     private Object elaborateData(Object data) throws IOException {
         Object result = null;
-        if (data instanceof Event) {
-            //gestisco Event
-            if (elaborateEvent((Event) data))
-                result = data;
-        } else if (data instanceof Token) {
-            //gestisco Token
-            result = elaborateToken((Token) data);
-        }
+        log.info("Elaborate data",getClass().getSimpleName());
         try {
             sleep(2000);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        if(data instanceof TokenLostEvent){
+            if(elaborateTokenLost((TokenLostEvent) data))
+                result = data;
+        } else if (data instanceof Event) {
+            if (elaborateEvent((Event) data))
+                result = data;
+        } else if (data instanceof Token) {
+            result = elaborateToken((Token) data);
+        }
+
         return result;
     }
 
     private void DeleteSensor(){
         log.info("Sensor removed",getClass().getSimpleName());
-        sensor.networkSensors.remove(sensorToDelete);
+        SensorHandle.removeNetworkSensor(sensorToDelete);
         sensorToDelete=null;
     }
 
     private boolean elaborateEvent(Event event) {
-        boolean toreplicate=false;
-        if (!event.isSentBy(sensor.sensorData)) {//non ho inviato io il messaggio
-            log.info("Event Sent by another", getClass().getSimpleName());
+        boolean toReplicate=false;
+        if (!event.isSentBy(SensorHandle.sensorData)) {//non ho inviato io il messaggio
             if (event.isInsertEvent()) {//qualcuno è entrato nella rete
-                log.info("A sensor Entered", getClass().getSimpleName());
-                if (event.isMyPrevious(sensor.sensorData)) {
-                    log.info("Is my previous sensor (so he connected to me)", getClass().getSimpleName());
-                    int index=sensor.networkSensors.indexOf(sensor.sensorData);
-                    //posiziono il sensore prima di me nella lista
-                    sensor.networkSensors.add(index,new SensorData(event.target.getId(),event.target.getType(),event.target.getAddress(),event.target.getPort()));
-
-                }else {
-                    sensor.networkSensors.add(new SensorData(event.target.getId(),event.target.getType(),event.target.getAddress(),event.target.getPort()));
-                }
-                toreplicate=true;
+                log.info("A sensor is entering", getClass().getSimpleName());
+                SensorHandle.addNetworkSensor(new SensorData(event.target.getId(),event.target.getType(),event.target.getAddress(),event.target.getPort()));
+                toReplicate=true;
             } else if (event.isDeleteEvent()) {
-                log.info("a SensorHandle is exiting", getClass().getSimpleName());
-                toreplicate=true;
+                log.info("A Sensor is exiting", getClass().getSimpleName());
+                sensorToDelete=event.target;
+                toReplicate=true;
             }
-        } else if(event.isSentBy(sensor.sensorData)) {//ho inviato io il messaggio
-            log.info("Event message send by me", getClass().getSimpleName());
+        } else if(event.isSentBy(SensorHandle.sensorData)) {//ho inviato io il messaggio
             if (event.isDeleteEvent()) { //è il messaggio di uscita dalla rete
-
-                log.info("Delete event message returned, can close the server", getClass().getSimpleName());
                 sensor.canClose();
             }else if(event.isInsertEvent()){
                 if(!waitForInsertReturn) {
                     waitForInsertReturn = true;
-                    toreplicate=true;
+                    toReplicate=true;
                 }
                 else {
                     waitForInsertReturn = false;
                 }
             }
         }
-        return toreplicate;
+        return toReplicate;
+    }
+
+    private boolean elaborateTokenLost(TokenLostEvent event){
+        //prendo l'event e controllo chi l'ha inviato
+        if(event.isSentBy(SensorHandle.sensorData)){  //inviato da me
+            if(!waitForTokenLostReturn)
+                waitForTokenLostReturn=true;
+            else{
+                //mi faccio dare l'id del "vincitore"
+                if(event.getOlderSensorId().equals(SensorHandle.sensorData.getId())) {
+                    log.info("I will create new Token",getClass().getSimpleName());
+                    SensorHandle.commonBuffer.push(Token.getInstance());//se il vincitore sono io genero un nuovo token
+                }
+                waitForTokenLostReturn=false;
+                return false;
+            }
+        }
+        event.add(SensorHandle.sensorData.getId(),System.currentTimeMillis()-SensorHandle.lifetime);
+        return true;
     }
 
     private Token elaborateToken(Token token) {
@@ -193,7 +222,10 @@ class SensorOutputThread extends Thread {
         }
         if(connected) {
             JsonObject dataForNext = new JsonObject();
-            if (data instanceof Event) {
+            if(data instanceof  TokenLostEvent){
+                dataForNext.addProperty("MessageType", "Event");
+                dataForNext.add("Body", gson.toJsonTree(data, TokenLostEvent.class));
+            } else if (data instanceof Event) {
                 dataForNext.addProperty("MessageType", "Event");
                 dataForNext.add("Body", gson.toJsonTree(data, Event.class));
             } else if (data instanceof Token) {

@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="ProgettoSdp:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="jersey-example.war">
-      <element id="artifact" artifact-name="ProgettoSdp:war exploded" />
-    </root>
-  </artifact>
-</component>
